@@ -1,4 +1,5 @@
 # Technical test for Le Bon Coin
+#### CI status for master : ![Image du status de master sur circle ci](https://circleci.com/gh/TufferyJordan/leboncoin-test/tree/master.png?style=shield&circle-token=0263721f1457026f4cefaec0d039fa71c78525b3)
 A small application developed for LeBonCoin as a technical test.
 The API REST is available [here](http://jsonplaceholder.typicode.com/photos)
 
