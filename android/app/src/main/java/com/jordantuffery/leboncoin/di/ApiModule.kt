@@ -60,24 +60,37 @@ class ApiModule(private val context: Context) {
                 .build()
 
         response.newBuilder()
+                .removeHeader(PRAGMA)
+                .removeHeader(ACCESS_CONTROL_ALLOW_ORIGIN)
+                .removeHeader(VARY)
+                .removeHeader(CACHE_CONTROL)
                 .header(CACHE_CONTROL, cacheControl.toString())
                 .build()
     }
 
     private fun createOfflineCacheInterceptor(): Interceptor = Interceptor { chain ->
         var response = chain.request()
-        val activeNetwork = (context.getSystemService(
+        val activeNetworkInfo = (context.getSystemService(
                 Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo
-        if (activeNetwork == null || !activeNetwork.isConnectedOrConnecting) {
+        if (activeNetworkInfo == null || !activeNetworkInfo.isConnectedOrConnecting) {
             val cacheControl = CacheControl.Builder()
                     .maxStale(7, TimeUnit.DAYS)
+                    .onlyIfCached()
                     .build()
-            response = response.newBuilder().cacheControl(cacheControl).build()
+            response = response.newBuilder()
+                    .removeHeader(PRAGMA)
+                    .removeHeader(ACCESS_CONTROL_ALLOW_ORIGIN)
+                    .removeHeader(VARY)
+                    .removeHeader(CACHE_CONTROL)
+                    .cacheControl(cacheControl).build()
         }
         chain.proceed(response)
     }
 
     companion object {
+        private const val PRAGMA = "Pragma"
+        private const val ACCESS_CONTROL_ALLOW_ORIGIN = "Access-Control-Allow-Origin"
+        private const val VARY = "Vary"
         private const val CACHE_CONTROL = "Cache-Control"
     }
 }

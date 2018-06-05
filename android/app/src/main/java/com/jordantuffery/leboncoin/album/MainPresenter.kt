@@ -14,8 +14,16 @@ class MainPresenter(val api: Api,
 
             override fun onSuccess(photoList: List<Photo>?) {
                 view.hideProgress()
-                view.populatePhotoList(photoList)
+                if (photoList == null) {
+                    view.showError(NOTHING_CACHED)
+                } else {
+                    view.populatePhotoList(photoList)
+                }
             }
         })
+    }
+
+    companion object {
+        const val NOTHING_CACHED = "Nothing is currently cached and the server is unreachable"
     }
 }

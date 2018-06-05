@@ -6,7 +6,7 @@ interface MainContract {
     interface MainView {
         fun showProgress()
         fun hideProgress()
-        fun populatePhotoList(photoList: List<Photo>?)
+        fun populatePhotoList(photoList: List<Photo>)
         fun showError(message: String? = null)
     }
 

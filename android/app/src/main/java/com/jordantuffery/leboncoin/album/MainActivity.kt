@@ -3,11 +3,12 @@ package com.jordantuffery.leboncoin.album
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import com.jordantuffery.leboncoin.DaggerSingletonComponent
 import com.jordantuffery.leboncoin.R
 import com.jordantuffery.leboncoin.api.Api
 import com.jordantuffery.leboncoin.api.Photo
 import com.jordantuffery.leboncoin.di.ApiModule
+import com.jordantuffery.leboncoin.di.DaggerSingletonComponent
+import kotlinx.android.synthetic.main.activity_main.test_button
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         DaggerSingletonComponent.builder()
-                .networkModule(ApiModule(this))
+                .apiModule(ApiModule(this))
                 .build()
                 .inject(this)
         presenter = MainPresenter(api, this)
@@ -45,8 +46,8 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
         Timber.e("hide progress...")
     }
 
-    override fun populatePhotoList(photoList: List<Photo>?) {
-        Timber.e("photoList first element : ${photoList?.get(0)?.toString()}")
+    override fun populatePhotoList(photoList: List<Photo>) {
+        Timber.e("photoList first element : ${photoList[0]}")
     }
 
     override fun showError(message: String?) {
