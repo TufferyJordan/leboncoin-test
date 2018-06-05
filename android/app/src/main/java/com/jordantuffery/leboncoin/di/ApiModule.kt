@@ -53,6 +53,10 @@ class ApiModule(private val context: Context) {
         return cache
     }
 
+    /**
+     * Create an OkHttpClient Interceptor use to store requests in the cache folder. The age is set at 2 minutes.
+     * It's useful to improve communication speed between the application and the server.
+     */
     private fun createCacheInterceptor(): Interceptor = Interceptor { chain ->
         val response = chain.proceed(chain.request())
         val cacheControl = CacheControl.Builder()
@@ -68,6 +72,10 @@ class ApiModule(private val context: Context) {
                 .build()
     }
 
+    /**
+     * Create an OkHttpClient Interceptor use to store requests in the cache folder. The stale is set at 7 days.
+     * It's for use the last cached request if network is not available.
+     */
     private fun createOfflineCacheInterceptor(): Interceptor = Interceptor { chain ->
         var response = chain.request()
         val activeNetworkInfo = (context.getSystemService(

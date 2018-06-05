@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        // injection of the dagger component
         DaggerSingletonComponent.builder()
                 .apiModule(ApiModule(this))
                 .build()
@@ -50,7 +51,7 @@ class MainActivity : AppCompatActivity(), MainContract.MainView {
         Timber.e("photoList first element : ${photoList[0]}")
     }
 
-    override fun showError(message: String?) {
-        Timber.e("show error ... $message")
+    override fun showError() {
+        Timber.e("show error ...")
     }
 }
