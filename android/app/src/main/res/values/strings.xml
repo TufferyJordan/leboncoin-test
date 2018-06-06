@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Le Bon Coin</string>
+    <string name="albums_title">Albums</string>
+    <string name="back_button_content_description">back button</string>
+    <string name="item_album_list_image_view_content_description">first photo of the album</string>
+    <string name="item_album_list_title">Album n°</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.jordantuffery.leboncoin.album
+package com.jordantuffery.leboncoin.presentation
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
