@@ -18,8 +18,8 @@
 
     <ImageView
         android:id="@+id/main_activity_button_back"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="@dimen/image_size"
+        android:layout_height="@dimen/image_size"
         android:layout_margin="@dimen/big_gap"
         android:background="@color/colorPrimary"
         android:contentDescription="@string/back_button_content_description"
