@@ -27,7 +27,7 @@ class AlbumFragment : BaseFragment(), AlbumContract.AlbumView {
         rootView.album_fragment_recycler_view.adapter = albumAdapter
         rootView.album_fragment_recycler_view.layoutManager =
                 if (activity?.resources?.configuration?.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    GridLayoutManager(context, 4)
+                    GridLayoutManager(context, 3)
                 } else {
                     GridLayoutManager(context, 2)
                 }

@@ -1,6 +1,5 @@
 package com.jordantuffery.leboncoin.presentation.album
 
-import android.annotation.SuppressLint
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View

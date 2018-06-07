@@ -1,15 +1,13 @@
 package com.jordantuffery.leboncoin.base
 
 import android.content.Context
-import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.view.View
 import com.jordantuffery.leboncoin.api.Api
 import com.jordantuffery.leboncoin.di.ApiModule
 import com.jordantuffery.leboncoin.di.DaggerSingletonComponent
 import javax.inject.Inject
 
-open class BaseFragment: Fragment() {
+open class BaseFragment : Fragment() {
     @Inject
     lateinit var api: Api
 
