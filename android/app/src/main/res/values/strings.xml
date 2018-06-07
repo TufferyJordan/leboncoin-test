@@ -4,5 +4,6 @@
     <string name="back_button_content_description">back button</string>
     <string name="item_album_list_image_view_content_description">first photo of the album</string>
     <string name="item_album_list_title">Album n°%d</string>
+    <string name="item_photo_list_title">Photo n°%d</string>
     <string name="photos_title">Photos</string>
 </resources>
