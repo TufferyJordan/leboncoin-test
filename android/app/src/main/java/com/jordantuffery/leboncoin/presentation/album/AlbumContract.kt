@@ -1,18 +1,13 @@
 package com.jordantuffery.leboncoin.presentation.album
 
-interface AlbumContract {
-    interface AlbumView {
+import com.jordantuffery.leboncoin.base.BaseContract
 
-        fun showProgress()
-        fun hideProgress()
+interface AlbumContract: BaseContract {
+    interface AlbumView: BaseContract.BaseView {
         fun populateAlbumList(albumList: List<Album>)
-        fun showError()
-        fun restoreLastItemIndex(itemIndex: Int)
     }
 
     interface AlbumPresenter {
-        var lastItemIndex: Int?
-
         fun requestAlbums()
     }
 }

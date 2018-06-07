@@ -2,12 +2,12 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/middle_gap">
 
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/middle_gap">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/item_album_list_image_view"
@@ -21,12 +21,14 @@
         <TextView
             android:id="@+id/item_album_list_text_view"
             style="@style/TextAppearance.AppCompat.Medium"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@string/item_album_list_title"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            android:layout_margin="@dimen/little_gap"
+            app:layout_constraintLeft_toLeftOf="@+id/item_album_list_image_view"
+            app:layout_constraintRight_toRightOf="@+id/item_album_list_image_view"
             app:layout_constraintTop_toBottomOf="@+id/item_album_list_image_view" />
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>

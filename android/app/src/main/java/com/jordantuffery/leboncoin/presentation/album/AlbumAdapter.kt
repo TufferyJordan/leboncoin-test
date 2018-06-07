@@ -2,6 +2,7 @@ package com.jordantuffery.leboncoin.presentation.album
 
 import android.annotation.SuppressLint
 import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
@@ -12,7 +13,7 @@ import kotlinx.android.synthetic.main.item_album_list.view.item_album_list_text_
 class AlbumAdapter(var adapterList: List<Album>) : RecyclerView.Adapter<AlbumAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(View.inflate(parent.context, R.layout.item_album_list, null))
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_album_list, parent, false))
     }
 
     override fun getItemCount(): Int = adapterList.size

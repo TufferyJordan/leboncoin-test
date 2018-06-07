@@ -5,4 +5,5 @@
     <dimen name="little_gap">4dp</dimen>
     <dimen name="image_size">50dp</dimen>
     <dimen name="thumbnail_size">150dp</dimen>
+    <dimen name="toolbar_size">70dp</dimen>
 </resources>

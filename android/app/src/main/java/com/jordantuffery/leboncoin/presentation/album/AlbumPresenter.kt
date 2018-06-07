@@ -5,13 +5,6 @@ import com.jordantuffery.leboncoin.api.Photo
 
 class AlbumPresenterImpl(val api: Api,
                          val view: AlbumContract.AlbumView) : AlbumContract.AlbumPresenter {
-    override var lastItemIndex: Int? = -1
-        set(value) {
-            if (value != -1 && value != null) {
-                field = value
-            }
-        }
-
     /**
      * asynchronous call to the api rest
      */
@@ -27,9 +20,6 @@ class AlbumPresenterImpl(val api: Api,
                 val albumList = Album.createAlbumListFromPhotoList(photoList)
                 view.hideProgress()
                 view.populateAlbumList(albumList)
-                if (lastItemIndex != -1) {
-                    view.restoreLastItemIndex(lastItemIndex!!)
-                }
             }
         })
     }
