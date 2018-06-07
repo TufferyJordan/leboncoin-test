@@ -24,34 +24,44 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
 
-        <ImageView
+        <Button
             android:id="@+id/main_activity_button_album"
             android:layout_width="@dimen/image_size"
             android:layout_height="@dimen/image_size"
             android:layout_margin="@dimen/big_gap"
-            android:background="@color/colorAccent"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:drawableTop="@drawable/btn_album"
+            android:padding="@dimen/middle_gap"
+            android:text="@string/albums_title"
+            android:textSize="@dimen/button_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/main_activity_button_photo"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <Button
             android:id="@+id/main_activity_button_back"
             android:layout_width="@dimen/image_size"
             android:layout_height="@dimen/image_size"
             android:layout_margin="@dimen/big_gap"
-            android:background="@color/colorAccent"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:textSize="@dimen/button_text_size"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="@+id/main_activity_button_album"
             app:layout_constraintRight_toRightOf="@+id/main_activity_button_album"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <Button
             android:id="@+id/main_activity_button_photo"
             android:layout_width="@dimen/image_size"
             android:layout_height="@dimen/image_size"
             android:layout_margin="@dimen/big_gap"
-            android:background="@color/colorAccent"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:drawableTop="@drawable/btn_photo"
+            android:padding="@dimen/middle_gap"
+            android:text="@string/photos_title"
+            android:textSize="@dimen/button_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/main_activity_button_album"
             app:layout_constraintRight_toRightOf="parent"
