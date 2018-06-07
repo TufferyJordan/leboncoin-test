@@ -10,19 +10,19 @@
         android:id="@+id/main_activity_fragment_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/main_activity_toolbar"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/main_activity_toolbar"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/main_activity_toolbar"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/toolbar_size"
+        android:layout_width="@dimen/toolbar_size"
+        android:layout_height="0dp"
         android:background="@color/cardview_dark_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <Button
             android:id="@+id/main_activity_button_album"
@@ -31,12 +31,11 @@
             android:layout_margin="@dimen/big_gap"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:drawableTop="@drawable/btn_album"
-            android:padding="@dimen/middle_gap"
             android:text="@string/albums_title"
             android:textSize="@dimen/button_text_size"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/main_activity_button_photo"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/main_activity_button_photo"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
@@ -47,10 +46,10 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:textSize="@dimen/button_text_size"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="@+id/main_activity_button_album"
-            app:layout_constraintRight_toRightOf="@+id/main_activity_button_album"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@+id/main_activity_button_album"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/main_activity_button_album" />
 
         <Button
             android:id="@+id/main_activity_button_photo"
@@ -63,9 +62,9 @@
             android:text="@string/photos_title"
             android:textSize="@dimen/button_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/main_activity_button_album"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/main_activity_button_album" />
     </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>

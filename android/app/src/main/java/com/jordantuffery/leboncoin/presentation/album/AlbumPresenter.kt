@@ -1,14 +1,14 @@
-package com.jordantuffery.leboncoin.album
+package com.jordantuffery.leboncoin.presentation.album
 
 import com.jordantuffery.leboncoin.api.Api
 import com.jordantuffery.leboncoin.api.Photo
 
-class MainPresenter(val api: Api,
-                    val view: MainContract.MainView) : MainContract.MainPresenter {
+class AlbumPresenterImpl(val api: Api,
+                         val view: AlbumContract.AlbumView) : AlbumContract.AlbumPresenter {
     /**
      * asynchronous call to the api rest
      */
-    override fun requestPhotoList() {
+    override fun requestAlbums() {
         view.showProgress()
         api.getPhotoList(object : Api.GetPhotoListCallback {
             override fun onError() {
@@ -17,8 +17,9 @@ class MainPresenter(val api: Api,
             }
 
             override fun onSuccess(photoList: List<Photo>) {
+                val albumList = Album.createAlbumListFromPhotoList(photoList)
                 view.hideProgress()
-                view.populatePhotoList(photoList)
+                view.populateAlbumList(albumList)
             }
         })
     }

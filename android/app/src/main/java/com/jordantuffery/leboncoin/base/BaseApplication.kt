@@ -1,4 +1,4 @@
-package com.jordantuffery.leboncoin
+package com.jordantuffery.leboncoin.base
 
 import android.app.Application
 import timber.log.Timber
