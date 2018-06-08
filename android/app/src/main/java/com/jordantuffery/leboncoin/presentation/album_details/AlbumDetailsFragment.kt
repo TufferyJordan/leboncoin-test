@@ -36,6 +36,7 @@ class AlbumDetailsFragment() : BaseFragment(), AlbumDetailsContract.View {
                 }
         rootView.album_details_fragment_text_view_title.text = rootView.resources.getString(
                 R.string.item_album_list_title, arguments?.getInt(KEY_ALBUM_ID) ?: 0)
+        listener?.onSaveAlbumId(arguments?.getInt(KEY_ALBUM_ID) ?: NO_ALBUM_ID)
 
         return rootView
     }
@@ -43,7 +44,6 @@ class AlbumDetailsFragment() : BaseFragment(), AlbumDetailsContract.View {
     override fun onStart() {
         presenter = AlbumDetailsPresenterImpl(api, this)
         presenter?.requestPhotos(arguments?.getInt(KEY_ALBUM_ID) ?: 0)
-        listener?.onSaveAlbumId(arguments?.getInt(KEY_ALBUM_ID) ?: NO_ALBUM_ID)
         super.onStart()
     }
 
