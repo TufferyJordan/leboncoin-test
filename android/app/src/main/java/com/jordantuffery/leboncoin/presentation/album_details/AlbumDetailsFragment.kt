@@ -7,13 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.jordantuffery.leboncoin.R
-import com.jordantuffery.leboncoin.base.BaseFragment
+import com.jordantuffery.leboncoin.api.Album
 import com.jordantuffery.leboncoin.presentation.Constants
-import com.jordantuffery.leboncoin.presentation.album.Album
+import com.jordantuffery.leboncoin.presentation.base.BaseFragment
 import com.jordantuffery.leboncoin.presentation.photos.PhotoAdapter
 import kotlinx.android.synthetic.main.fragment_album_details.album_details_fragment_error
 import kotlinx.android.synthetic.main.fragment_album_details.album_details_fragment_progress_bar
 import kotlinx.android.synthetic.main.fragment_album_details.album_details_fragment_recycler_view
+import kotlinx.android.synthetic.main.fragment_album_details.view.album_details_fragment_error
 import kotlinx.android.synthetic.main.fragment_album_details.view.album_details_fragment_recycler_view
 import kotlinx.android.synthetic.main.fragment_album_details.view.album_details_fragment_text_view_title
 
@@ -39,6 +40,9 @@ class AlbumDetailsFragment() : BaseFragment(), AlbumDetailsContract.View {
                 R.string.item_album_list_title, arguments?.getInt(Constants.KEY_ALBUM_ID) ?: 0)
         listener?.onSaveAlbumId(arguments?.getInt(Constants.KEY_ALBUM_ID) ?: Constants.NO_ALBUM_ID)
 
+        rootView.album_details_fragment_error.setOnClickListener {
+            presenter?.requestPhotos(arguments?.getInt(Constants.KEY_ALBUM_ID) ?: 0)
+        }
         return rootView
     }
 
@@ -92,6 +96,5 @@ class AlbumDetailsFragment() : BaseFragment(), AlbumDetailsContract.View {
             fragment.arguments = args
             return fragment
         }
-
     }
 }

@@ -1,5 +1,6 @@
 package com.jordantuffery.leboncoin.presentation.album
 
+import com.jordantuffery.leboncoin.api.Album
 import com.jordantuffery.leboncoin.api.Api
 import com.jordantuffery.leboncoin.api.Photo
 

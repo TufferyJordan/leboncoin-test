@@ -1,6 +1,4 @@
-package com.jordantuffery.leboncoin.presentation.album
-
-import com.jordantuffery.leboncoin.api.Photo
+package com.jordantuffery.leboncoin.api
 
 data class Album(val id: Int,
                  val photos: ArrayList<Photo>) {
@@ -19,7 +17,8 @@ data class Album(val id: Int,
             return albumsList
         }
 
-        fun fromAlbumId(albumId: Int, photoList: List<Photo>): Album = Album(albumId,
-                                                                             photoList.filter { it.albumId == albumId } as ArrayList<Photo>)
+        fun fromAlbumId(albumId: Int, photoList: List<Photo>): Album = Album(
+                albumId,
+                photoList.filter { it.albumId == albumId } as ArrayList<Photo>)
     }
 }

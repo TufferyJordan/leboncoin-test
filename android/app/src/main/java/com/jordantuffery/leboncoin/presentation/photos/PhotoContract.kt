@@ -1,7 +1,7 @@
 package com.jordantuffery.leboncoin.presentation.photos
 
 import com.jordantuffery.leboncoin.api.Photo
-import com.jordantuffery.leboncoin.base.BaseContract
+import com.jordantuffery.leboncoin.presentation.base.BaseContract
 
 interface PhotoContract : BaseContract {
     interface PhotoView : BaseContract.BaseView {

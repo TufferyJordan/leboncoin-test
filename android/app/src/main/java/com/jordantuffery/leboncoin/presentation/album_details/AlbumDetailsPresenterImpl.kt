@@ -1,8 +1,8 @@
 package com.jordantuffery.leboncoin.presentation.album_details
 
+import com.jordantuffery.leboncoin.api.Album
 import com.jordantuffery.leboncoin.api.Api
 import com.jordantuffery.leboncoin.api.Photo
-import com.jordantuffery.leboncoin.presentation.album.Album
 
 class AlbumDetailsPresenterImpl(val api: Api,
                                 val view: AlbumDetailsContract.View) : AlbumDetailsContract.Presenter {

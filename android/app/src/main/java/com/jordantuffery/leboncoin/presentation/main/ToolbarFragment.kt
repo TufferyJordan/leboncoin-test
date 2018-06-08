@@ -11,11 +11,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.jordantuffery.leboncoin.R
-import com.jordantuffery.leboncoin.base.BaseFragment
 import com.jordantuffery.leboncoin.presentation.Constants
-import com.jordantuffery.leboncoin.presentation.album.AlbumAdapter
 import com.jordantuffery.leboncoin.presentation.album.AlbumFragment
 import com.jordantuffery.leboncoin.presentation.album_details.AlbumDetailsFragment
+import com.jordantuffery.leboncoin.presentation.base.BaseFragment
 import com.jordantuffery.leboncoin.presentation.photos.PhotoFragment
 import kotlinx.android.synthetic.main.fragment_toolbar.main_activity_button_album
 import kotlinx.android.synthetic.main.fragment_toolbar.main_activity_button_back
@@ -47,7 +46,7 @@ class ToolbarFragment : Fragment() {
         LocalBroadcastManager.getInstance(view.context).registerReceiver(receiver,
                                                                          IntentFilter(Constants.EVENT_CLICK_ALBUM))
 
-        if(arguments != null) {
+        if (arguments != null) {
             val albumIdSaved = arguments!!.getInt(Constants.KEY_ALBUM_ID,
                                                   Constants.NO_ALBUM_ID)
             val isPhotoFragmentVisibleSaved = arguments!!.getBoolean(

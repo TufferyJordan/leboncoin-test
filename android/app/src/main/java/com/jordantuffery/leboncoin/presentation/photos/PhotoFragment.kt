@@ -8,10 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.jordantuffery.leboncoin.R
 import com.jordantuffery.leboncoin.api.Photo
-import com.jordantuffery.leboncoin.base.BaseFragment
+import com.jordantuffery.leboncoin.presentation.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_photo.photo_fragment_error
 import kotlinx.android.synthetic.main.fragment_photo.photo_fragment_progress_bar
 import kotlinx.android.synthetic.main.fragment_photo.photo_fragment_recycler_view
+import kotlinx.android.synthetic.main.fragment_photo.view.photo_fragment_error
 import kotlinx.android.synthetic.main.fragment_photo.view.photo_fragment_recycler_view
 
 class PhotoFragment : BaseFragment(), PhotoContract.PhotoView {
@@ -32,6 +33,8 @@ class PhotoFragment : BaseFragment(), PhotoContract.PhotoView {
                 } else {
                     GridLayoutManager(context, 2)
                 }
+
+        rootView.photo_fragment_error.setOnClickListener { presenter?.requestPhotos() }
 
         return rootView
     }

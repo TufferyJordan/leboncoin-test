@@ -4,9 +4,9 @@ import android.app.FragmentTransaction
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.jordantuffery.leboncoin.R
-import com.jordantuffery.leboncoin.base.BaseFragment
 import com.jordantuffery.leboncoin.presentation.Constants
 import com.jordantuffery.leboncoin.presentation.album_details.AlbumDetailsFragment
+import com.jordantuffery.leboncoin.presentation.base.BaseFragment
 import com.jordantuffery.leboncoin.presentation.photos.PhotoFragment
 
 class MainActivity : AppCompatActivity(), ToolbarFragment.Listener, AlbumDetailsFragment.Listener {
@@ -18,13 +18,13 @@ class MainActivity : AppCompatActivity(), ToolbarFragment.Listener, AlbumDetails
         setContentView(R.layout.activity_main)
         val albumIdSaved = savedInstanceState?.getInt(Constants.KEY_ALBUM_ID,
                                                       Constants.NO_ALBUM_ID)
-        if (albumIdSaved != null && albumIdSaved != Constants.NO_ALBUM_ID) {
+        if (albumIdSaved != null) {
             albumIdToSave = albumIdSaved
         }
 
         val isPhotoFragmentVisibleSaved = savedInstanceState?.getBoolean(Constants.KEY_IS_PHOTO_FRAGMENT_VISIBLE,
                                                                          false)
-        if (isPhotoFragmentVisibleSaved != null && isPhotoFragmentVisibleSaved) {
+        if (isPhotoFragmentVisibleSaved != null) {
             isPhotoFragmentVisible = isPhotoFragmentVisibleSaved
         }
 
@@ -36,9 +36,7 @@ class MainActivity : AppCompatActivity(), ToolbarFragment.Listener, AlbumDetails
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        if (albumIdToSave != Constants.NO_ALBUM_ID) {
-            outState.putInt(Constants.KEY_ALBUM_ID, albumIdToSave)
-        }
+        outState.putInt(Constants.KEY_ALBUM_ID, albumIdToSave)
         outState.putBoolean(Constants.KEY_IS_PHOTO_FRAGMENT_VISIBLE, isPhotoFragmentVisible)
         super.onSaveInstanceState(outState)
     }
@@ -56,8 +54,5 @@ class MainActivity : AppCompatActivity(), ToolbarFragment.Listener, AlbumDetails
         }
         frTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         frTransaction.replace(R.id.main_activity_fragment_container, fragment).commitAllowingStateLoss()
-    }
-
-    companion object {
     }
 }
