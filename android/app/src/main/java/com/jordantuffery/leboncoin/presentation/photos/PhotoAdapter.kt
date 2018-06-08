@@ -4,6 +4,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.jordantuffery.leboncoin.R
 import com.jordantuffery.leboncoin.api.Photo
@@ -27,7 +29,7 @@ class PhotoAdapter(var adapterList: List<Photo>) : RecyclerView.Adapter<PhotoAda
     }
 
     class ViewHolder(val rootView: View) : RecyclerView.ViewHolder(rootView) {
-        val imageView = rootView.item_photo_list_image_view
-        val textView = rootView.item_photo_list_text_view
+        val imageView: ImageView = rootView.item_photo_list_image_view
+        val textView: TextView = rootView.item_photo_list_text_view
     }
 }
