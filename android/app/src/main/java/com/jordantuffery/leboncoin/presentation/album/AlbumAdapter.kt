@@ -1,9 +1,13 @@
 package com.jordantuffery.leboncoin.presentation.album
 
+import android.content.Intent
+import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.jordantuffery.leboncoin.R
 import kotlinx.android.synthetic.main.item_album_list.view.item_album_list_image_view
@@ -22,11 +26,24 @@ class AlbumAdapter(var adapterList: List<Album>) : RecyclerView.Adapter<AlbumAda
             Glide.with(holder.rootView).load(photos[0].thumbnailUrl).into(holder.imageView)
             holder.textView.text = String.format(
                     holder.rootView.context.resources.getString(R.string.item_album_list_title), id)
+
+            holder.rootView.setOnClickListener {
+                val intent = Intent().apply {
+                    action = EVENT_CLICK_ALBUM
+                    putExtra(KEY_ALBUM_ID, id)
+                }
+                LocalBroadcastManager.getInstance(holder.rootView.context).sendBroadcast(intent)
+            }
         }
     }
 
     class ViewHolder(val rootView: View) : RecyclerView.ViewHolder(rootView) {
-        val imageView = rootView.item_album_list_image_view
-        val textView = rootView.item_album_list_text_view
+        val imageView: ImageView = rootView.item_album_list_image_view
+        val textView: TextView = rootView.item_album_list_text_view
+    }
+
+    companion object {
+        const val EVENT_CLICK_ALBUM = "EVENT_CLICK_ALBUM"
+        const val KEY_ALBUM_ID = "KEY_ALBUM_ID"
     }
 }

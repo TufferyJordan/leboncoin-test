@@ -7,16 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.jordantuffery.leboncoin.R
-import com.jordantuffery.leboncoin.api.Photo
 import com.jordantuffery.leboncoin.base.BaseFragment
+import com.jordantuffery.leboncoin.presentation.album.Album
 import com.jordantuffery.leboncoin.presentation.photos.PhotoAdapter
-import kotlinx.android.synthetic.main.fragment_photo.photo_fragment_error
-import kotlinx.android.synthetic.main.fragment_photo.photo_fragment_progress_bar
-import kotlinx.android.synthetic.main.fragment_photo.photo_fragment_recycler_view
-import kotlinx.android.synthetic.main.fragment_photo.view.photo_fragment_recycler_view
+import kotlinx.android.synthetic.main.fragment_album_details.album_details_fragment_error
+import kotlinx.android.synthetic.main.fragment_album_details.album_details_fragment_progress_bar
+import kotlinx.android.synthetic.main.fragment_album_details.album_details_fragment_recycler_view
+import kotlinx.android.synthetic.main.fragment_album_details.view.album_details_fragment_recycler_view
+import kotlinx.android.synthetic.main.fragment_album_details.view.album_details_fragment_text_view_title
 
-class AlbumDetailsFragment : BaseFragment(), AlbumDetailsContract.View{
-
+class AlbumDetailsFragment() : BaseFragment(), AlbumDetailsContract.View {
     private var presenter: AlbumDetailsContract.Presenter? = null
 
     private var photoAdapter = PhotoAdapter(listOf())
@@ -24,22 +24,24 @@ class AlbumDetailsFragment : BaseFragment(), AlbumDetailsContract.View{
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(
-                R.layout.fragment_photo, container, false)
+                R.layout.fragment_album_details, container, false)
 
-        rootView.photo_fragment_recycler_view.adapter = photoAdapter
-        rootView.photo_fragment_recycler_view.layoutManager =
+        rootView.album_details_fragment_recycler_view.adapter = photoAdapter
+        rootView.album_details_fragment_recycler_view.layoutManager =
                 if (activity?.resources?.configuration?.orientation == Configuration.ORIENTATION_LANDSCAPE) {
                     GridLayoutManager(context, 3)
                 } else {
                     GridLayoutManager(context, 2)
                 }
+        rootView.album_details_fragment_text_view_title.text = rootView.resources.getString(
+                R.string.item_album_list_title, arguments?.getInt(KEY_ALBUM_ID) ?: 0)
 
         return rootView
     }
 
     override fun onStart() {
         presenter = AlbumDetailsPresenterImpl(api, this)
-        presenter?.requestPhotos()
+        presenter?.requestPhotos(arguments?.getInt(KEY_ALBUM_ID) ?: 0)
         super.onStart()
     }
 
@@ -50,29 +52,36 @@ class AlbumDetailsFragment : BaseFragment(), AlbumDetailsContract.View{
 
 
     override fun showProgress() {
-        photo_fragment_recycler_view.visibility = View.GONE
-        photo_fragment_progress_bar.visibility = View.VISIBLE
-        photo_fragment_error.visibility = View.GONE
+        album_details_fragment_recycler_view.visibility = View.GONE
+        album_details_fragment_progress_bar.visibility = View.VISIBLE
+        album_details_fragment_error.visibility = View.GONE
     }
 
     override fun hideProgress() {
-        photo_fragment_recycler_view.visibility = View.VISIBLE
-        photo_fragment_progress_bar.visibility = View.GONE
-        photo_fragment_error.visibility = View.GONE
+        album_details_fragment_recycler_view.visibility = View.VISIBLE
+        album_details_fragment_progress_bar.visibility = View.GONE
+        album_details_fragment_error.visibility = View.GONE
     }
 
-    override fun populatePhotoList(photoList: List<Photo>) {
-        photoAdapter.adapterList = photoList
+    override fun populatePhotoList(album: Album) {
+        photoAdapter.adapterList = album.photos
         photoAdapter.notifyDataSetChanged()
     }
 
     override fun showError() {
-        photo_fragment_recycler_view.visibility = View.GONE
-        photo_fragment_progress_bar.visibility = View.GONE
-        photo_fragment_error.visibility = View.VISIBLE
+        album_details_fragment_recycler_view.visibility = View.GONE
+        album_details_fragment_progress_bar.visibility = View.GONE
+        album_details_fragment_error.visibility = View.VISIBLE
     }
 
     companion object {
-        fun newInstance(): AlbumDetailsFragment = AlbumDetailsFragment()
+        fun newInstance(albumId: Int): AlbumDetailsFragment {
+            val fragment = AlbumDetailsFragment()
+            val args = Bundle().apply { putInt(KEY_ALBUM_ID, albumId) }
+            fragment.arguments = args
+            return fragment
+        }
+
+        private const val KEY_ALBUM_ID = "KEY_ALBUM_ID"
     }
 }
