@@ -1,6 +1,7 @@
 package com.jordantuffery.leboncoin.presentation.album
 
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.jordantuffery.leboncoin.R
+import com.jordantuffery.leboncoin.presentation.Constants
 import kotlinx.android.synthetic.main.item_album_list.view.item_album_list_image_view
 import kotlinx.android.synthetic.main.item_album_list.view.item_album_list_text_view
 
@@ -29,8 +31,8 @@ class AlbumAdapter(var adapterList: List<Album>) : RecyclerView.Adapter<AlbumAda
 
             holder.rootView.setOnClickListener {
                 val intent = Intent().apply {
-                    action = EVENT_CLICK_ALBUM
-                    putExtra(KEY_ALBUM_ID, id)
+                    action = Constants.EVENT_CLICK_ALBUM
+                    putExtra(Constants.KEY_ALBUM_ID, id)
                 }
                 LocalBroadcastManager.getInstance(holder.rootView.context).sendBroadcast(intent)
             }
@@ -40,10 +42,5 @@ class AlbumAdapter(var adapterList: List<Album>) : RecyclerView.Adapter<AlbumAda
     class ViewHolder(val rootView: View) : RecyclerView.ViewHolder(rootView) {
         val imageView: ImageView = rootView.item_album_list_image_view
         val textView: TextView = rootView.item_album_list_text_view
-    }
-
-    companion object {
-        const val EVENT_CLICK_ALBUM = "EVENT_CLICK_ALBUM"
-        const val KEY_ALBUM_ID = "KEY_ALBUM_ID"
     }
 }

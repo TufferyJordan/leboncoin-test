@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.jordantuffery.leboncoin.R
 import com.jordantuffery.leboncoin.api.Photo
+import com.jordantuffery.leboncoin.presentation.Constants
 import com.jordantuffery.leboncoin.presentation.PhotoDetailsActivity
 import kotlinx.android.synthetic.main.item_photo_list.view.item_photo_list_image_view
 import kotlinx.android.synthetic.main.item_photo_list.view.item_photo_list_text_view
@@ -30,7 +31,7 @@ class PhotoAdapter(var adapterList: List<Photo>) : RecyclerView.Adapter<PhotoAda
             val context = holder.rootView.context
             holder.rootView.setOnClickListener {
                 context.startActivity(Intent(context, PhotoDetailsActivity::class.java).apply {
-                    putExtra(KEY_PHOTO_PARCELIZED, adapterList[position])
+                    putExtra(Constants.KEY_PHOTO_PARCELIZED, adapterList[position])
                 })
             }
         }
@@ -42,6 +43,5 @@ class PhotoAdapter(var adapterList: List<Photo>) : RecyclerView.Adapter<PhotoAda
     }
 
     companion object {
-        const val KEY_PHOTO_PARCELIZED = "KEY_PHOTO_PARCELIZED"
     }
 }

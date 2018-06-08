@@ -20,7 +20,7 @@ class PhotoDetailsActivity : AppCompatActivity() {
             finish()
         }
 
-        val photo = intent.getParcelableExtra<Photo>(PhotoAdapter.KEY_PHOTO_PARCELIZED)
+        val photo = intent.getParcelableExtra<Photo>(Constants.KEY_PHOTO_PARCELIZED)
 
         Glide.with(this).load(photo.url).into(photo_details_activity_full_image)
         photo_details_activity_title.text = resources.getString(R.string.item_photo_list_title, photo.id)

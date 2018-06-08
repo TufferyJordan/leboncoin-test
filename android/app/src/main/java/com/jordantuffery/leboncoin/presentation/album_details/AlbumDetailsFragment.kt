@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.jordantuffery.leboncoin.R
 import com.jordantuffery.leboncoin.base.BaseFragment
+import com.jordantuffery.leboncoin.presentation.Constants
 import com.jordantuffery.leboncoin.presentation.album.Album
 import com.jordantuffery.leboncoin.presentation.photos.PhotoAdapter
 import kotlinx.android.synthetic.main.fragment_album_details.album_details_fragment_error
@@ -35,15 +36,15 @@ class AlbumDetailsFragment() : BaseFragment(), AlbumDetailsContract.View {
                     GridLayoutManager(context, 2)
                 }
         rootView.album_details_fragment_text_view_title.text = rootView.resources.getString(
-                R.string.item_album_list_title, arguments?.getInt(KEY_ALBUM_ID) ?: 0)
-        listener?.onSaveAlbumId(arguments?.getInt(KEY_ALBUM_ID) ?: NO_ALBUM_ID)
+                R.string.item_album_list_title, arguments?.getInt(Constants.KEY_ALBUM_ID) ?: 0)
+        listener?.onSaveAlbumId(arguments?.getInt(Constants.KEY_ALBUM_ID) ?: Constants.NO_ALBUM_ID)
 
         return rootView
     }
 
     override fun onStart() {
         presenter = AlbumDetailsPresenterImpl(api, this)
-        presenter?.requestPhotos(arguments?.getInt(KEY_ALBUM_ID) ?: 0)
+        presenter?.requestPhotos(arguments?.getInt(Constants.KEY_ALBUM_ID) ?: 0)
         super.onStart()
     }
 
@@ -52,13 +53,9 @@ class AlbumDetailsFragment() : BaseFragment(), AlbumDetailsContract.View {
         super.onStop()
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-    }
-
-    override fun onDestroy() {
-        listener?.onSaveAlbumId(NO_ALBUM_ID)
-        super.onDestroy()
+    override fun onDestroyView() {
+        listener?.onSaveAlbumId(Constants.NO_ALBUM_ID)
+        super.onDestroyView()
     }
 
     override fun showProgress() {
@@ -91,12 +88,10 @@ class AlbumDetailsFragment() : BaseFragment(), AlbumDetailsContract.View {
     companion object {
         fun newInstance(albumId: Int): AlbumDetailsFragment {
             val fragment = AlbumDetailsFragment()
-            val args = Bundle().apply { putInt(KEY_ALBUM_ID, albumId) }
+            val args = Bundle().apply { putInt(Constants.KEY_ALBUM_ID, albumId) }
             fragment.arguments = args
             return fragment
         }
 
-        const val KEY_ALBUM_ID = "KEY_ALBUM_ID"
-        const val NO_ALBUM_ID = -1
     }
 }

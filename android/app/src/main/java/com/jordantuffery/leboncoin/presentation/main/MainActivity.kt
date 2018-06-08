@@ -5,25 +5,26 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.jordantuffery.leboncoin.R
 import com.jordantuffery.leboncoin.base.BaseFragment
+import com.jordantuffery.leboncoin.presentation.Constants
 import com.jordantuffery.leboncoin.presentation.album_details.AlbumDetailsFragment
 import com.jordantuffery.leboncoin.presentation.photos.PhotoFragment
 
 class MainActivity : AppCompatActivity(), ToolbarFragment.Listener, AlbumDetailsFragment.Listener {
-    private var albumIdToSave = AlbumDetailsFragment.NO_ALBUM_ID
+    private var albumIdToSave = Constants.NO_ALBUM_ID
     private var isPhotoFragmentVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val albumIdSaved = savedInstanceState?.getInt(AlbumDetailsFragment.KEY_ALBUM_ID,
-                                                      AlbumDetailsFragment.NO_ALBUM_ID)
-        if (albumIdSaved != null && albumIdSaved != AlbumDetailsFragment.NO_ALBUM_ID) {
+        val albumIdSaved = savedInstanceState?.getInt(Constants.KEY_ALBUM_ID,
+                                                      Constants.NO_ALBUM_ID)
+        if (albumIdSaved != null && albumIdSaved != Constants.NO_ALBUM_ID) {
             albumIdToSave = albumIdSaved
         }
 
-        val isPhotoFragmentVisibleSaved = savedInstanceState?.getBoolean(KEY_IS_PHOTO_FRAGMENT_VISIBLE,
-                                                                false)
-        if(isPhotoFragmentVisibleSaved != null && isPhotoFragmentVisibleSaved) {
+        val isPhotoFragmentVisibleSaved = savedInstanceState?.getBoolean(Constants.KEY_IS_PHOTO_FRAGMENT_VISIBLE,
+                                                                         false)
+        if (isPhotoFragmentVisibleSaved != null && isPhotoFragmentVisibleSaved) {
             isPhotoFragmentVisible = isPhotoFragmentVisibleSaved
         }
 
@@ -35,10 +36,10 @@ class MainActivity : AppCompatActivity(), ToolbarFragment.Listener, AlbumDetails
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        if (albumIdToSave != AlbumDetailsFragment.NO_ALBUM_ID) {
-            outState.putInt(AlbumDetailsFragment.KEY_ALBUM_ID, albumIdToSave)
+        if (albumIdToSave != Constants.NO_ALBUM_ID) {
+            outState.putInt(Constants.KEY_ALBUM_ID, albumIdToSave)
         }
-        outState.putBoolean(KEY_IS_PHOTO_FRAGMENT_VISIBLE, isPhotoFragmentVisible)
+        outState.putBoolean(Constants.KEY_IS_PHOTO_FRAGMENT_VISIBLE, isPhotoFragmentVisible)
         super.onSaveInstanceState(outState)
     }
 
@@ -58,6 +59,5 @@ class MainActivity : AppCompatActivity(), ToolbarFragment.Listener, AlbumDetails
     }
 
     companion object {
-        const val KEY_IS_PHOTO_FRAGMENT_VISIBLE = "KEY_IS_PHOTO_FRAGMENT_VISIBLE"
     }
 }
