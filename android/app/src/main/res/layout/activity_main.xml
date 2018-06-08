@@ -45,7 +45,6 @@
             android:layout_height="@dimen/image_size"
             android:layout_margin="@dimen/big_gap"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:textSize="@dimen/button_text_size"
             android:src="@drawable/btn_back"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
