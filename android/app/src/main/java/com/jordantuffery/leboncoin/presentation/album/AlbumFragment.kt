@@ -40,7 +40,6 @@ class AlbumFragment : BaseFragment(), AlbumContract.AlbumView {
     }
 
     override fun onStart() {
-
         presenter = AlbumPresenterImpl(api, this)
         presenter?.requestAlbums()
         super.onStart()

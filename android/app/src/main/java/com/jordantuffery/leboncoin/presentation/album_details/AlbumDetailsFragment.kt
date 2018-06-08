@@ -18,9 +18,12 @@ import kotlinx.android.synthetic.main.fragment_album_details.view.album_details_
 import kotlinx.android.synthetic.main.fragment_album_details.view.album_details_fragment_recycler_view
 import kotlinx.android.synthetic.main.fragment_album_details.view.album_details_fragment_text_view_title
 
-class AlbumDetailsFragment() : BaseFragment(), AlbumDetailsContract.View {
+class AlbumDetailsFragment : BaseFragment(), AlbumDetailsContract.View {
     private var presenter: AlbumDetailsContract.Presenter? = null
+
     var listener: Listener? = null
+
+    private var albumId: Int = Constants.NO_ALBUM_ID
 
     private var photoAdapter = PhotoAdapter(listOf())
 
@@ -36,19 +39,21 @@ class AlbumDetailsFragment() : BaseFragment(), AlbumDetailsContract.View {
                 } else {
                     GridLayoutManager(context, 2)
                 }
+        albumId = arguments?.getInt(Constants.KEY_ALBUM_ID) ?: Constants.NO_ALBUM_ID
+        listener?.onSaveAlbumId(albumId)
+
         rootView.album_details_fragment_text_view_title.text = rootView.resources.getString(
-                R.string.item_album_list_title, arguments?.getInt(Constants.KEY_ALBUM_ID) ?: 0)
-        listener?.onSaveAlbumId(arguments?.getInt(Constants.KEY_ALBUM_ID) ?: Constants.NO_ALBUM_ID)
+                R.string.item_album_list_title, albumId)
 
         rootView.album_details_fragment_error.setOnClickListener {
-            presenter?.requestPhotos(arguments?.getInt(Constants.KEY_ALBUM_ID) ?: 0)
+            presenter?.requestPhotos(albumId)
         }
         return rootView
     }
 
     override fun onStart() {
         presenter = AlbumDetailsPresenterImpl(api, this)
-        presenter?.requestPhotos(arguments?.getInt(Constants.KEY_ALBUM_ID) ?: 0)
+        presenter?.requestPhotos(albumId)
         super.onStart()
     }
 
@@ -57,9 +62,9 @@ class AlbumDetailsFragment() : BaseFragment(), AlbumDetailsContract.View {
         super.onStop()
     }
 
-    override fun onDestroyView() {
+    override fun onDestroy() {
         listener?.onSaveAlbumId(Constants.NO_ALBUM_ID)
-        super.onDestroyView()
+        super.onDestroy()
     }
 
     override fun showProgress() {
@@ -86,7 +91,7 @@ class AlbumDetailsFragment() : BaseFragment(), AlbumDetailsContract.View {
     }
 
     interface Listener {
-        fun onSaveAlbumId(albumIdToSave: Int)
+        fun onSaveAlbumId(albumIdToSave : Int)
     }
 
     companion object {

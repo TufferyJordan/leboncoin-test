@@ -15,6 +15,7 @@ class Api(private val apiService: ApiService) {
 
             override fun onResponse(call: Call<List<Photo>>, response: Response<List<Photo>>) {
                 if (response.body() == null) {
+                    // when the cache is readied but nothing is currently saved
                     callback.onError()
                 } else {
                     callback.onSuccess(response.body()!!)
