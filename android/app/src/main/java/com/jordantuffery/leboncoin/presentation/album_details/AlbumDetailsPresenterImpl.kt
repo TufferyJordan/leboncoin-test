@@ -5,7 +5,7 @@ import com.jordantuffery.leboncoin.api.Photo
 import com.jordantuffery.leboncoin.presentation.album.Album
 
 class AlbumDetailsPresenterImpl(val api: Api,
-                                val view: AlbumDetailsContract.View) : AlbumDetailsContract.Presenter{
+                                val view: AlbumDetailsContract.View) : AlbumDetailsContract.Presenter {
     override fun requestPhotos(albumId: Int) {
         view.showProgress()
         api.getPhotoList(object : Api.GetPhotoListCallback {

@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.fragment_album_details.view.album_details_
 
 class AlbumDetailsFragment() : BaseFragment(), AlbumDetailsContract.View {
     private var presenter: AlbumDetailsContract.Presenter? = null
+    var listener: Listener? = null
 
     private var photoAdapter = PhotoAdapter(listOf())
 
@@ -42,6 +43,7 @@ class AlbumDetailsFragment() : BaseFragment(), AlbumDetailsContract.View {
     override fun onStart() {
         presenter = AlbumDetailsPresenterImpl(api, this)
         presenter?.requestPhotos(arguments?.getInt(KEY_ALBUM_ID) ?: 0)
+        listener?.onSaveAlbumId(arguments?.getInt(KEY_ALBUM_ID) ?: NO_ALBUM_ID)
         super.onStart()
     }
 
@@ -50,6 +52,14 @@ class AlbumDetailsFragment() : BaseFragment(), AlbumDetailsContract.View {
         super.onStop()
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onDestroy() {
+        listener?.onSaveAlbumId(NO_ALBUM_ID)
+        super.onDestroy()
+    }
 
     override fun showProgress() {
         album_details_fragment_recycler_view.visibility = View.GONE
@@ -74,6 +84,10 @@ class AlbumDetailsFragment() : BaseFragment(), AlbumDetailsContract.View {
         album_details_fragment_error.visibility = View.VISIBLE
     }
 
+    interface Listener {
+        fun onSaveAlbumId(albumIdToSave: Int)
+    }
+
     companion object {
         fun newInstance(albumId: Int): AlbumDetailsFragment {
             val fragment = AlbumDetailsFragment()
@@ -82,6 +96,7 @@ class AlbumDetailsFragment() : BaseFragment(), AlbumDetailsContract.View {
             return fragment
         }
 
-        private const val KEY_ALBUM_ID = "KEY_ALBUM_ID"
+        const val KEY_ALBUM_ID = "KEY_ALBUM_ID"
+        const val NO_ALBUM_ID = -1
     }
 }
