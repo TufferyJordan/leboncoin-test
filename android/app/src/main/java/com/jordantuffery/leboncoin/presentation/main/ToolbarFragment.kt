@@ -11,10 +11,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.jordantuffery.leboncoin.R
-import com.jordantuffery.leboncoin.base.BaseFragment
-import com.jordantuffery.leboncoin.presentation.album.AlbumAdapter
+import com.jordantuffery.leboncoin.presentation.Constants
 import com.jordantuffery.leboncoin.presentation.album.AlbumFragment
 import com.jordantuffery.leboncoin.presentation.album_details.AlbumDetailsFragment
+import com.jordantuffery.leboncoin.presentation.base.BaseFragment
 import com.jordantuffery.leboncoin.presentation.photos.PhotoFragment
 import kotlinx.android.synthetic.main.fragment_toolbar.main_activity_button_album
 import kotlinx.android.synthetic.main.fragment_toolbar.main_activity_button_back
@@ -27,8 +27,8 @@ class ToolbarFragment : Fragment() {
         override fun onReceive(context: Context, intent: Intent) {
             intent.apply {
                 when (action) {
-                    AlbumAdapter.EVENT_CLICK_ALBUM -> {
-                        val albumId = getIntExtra(AlbumAdapter.KEY_ALBUM_ID, 0)
+                    Constants.EVENT_CLICK_ALBUM -> {
+                        val albumId = getIntExtra(Constants.KEY_ALBUM_ID, 0)
                         goToAlbumDetails(albumId)
                     }
                 }
@@ -44,13 +44,22 @@ class ToolbarFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         LocalBroadcastManager.getInstance(view.context).registerReceiver(receiver,
-                                                                         IntentFilter(AlbumAdapter.EVENT_CLICK_ALBUM))
+                                                                         IntentFilter(Constants.EVENT_CLICK_ALBUM))
 
-        if (arguments == null || arguments?.getInt(KEY_ALBUM_ID,
-                                                   AlbumDetailsFragment.NO_ALBUM_ID) == AlbumDetailsFragment.NO_ALBUM_ID) {
-            goToAlbum()
-        } else {
-            goToAlbumDetails(arguments!!.getInt(KEY_ALBUM_ID, AlbumDetailsFragment.NO_ALBUM_ID))
+        if (arguments != null) {
+            val albumIdSaved = arguments!!.getInt(Constants.KEY_ALBUM_ID,
+                                                  Constants.NO_ALBUM_ID)
+            val isPhotoFragmentVisibleSaved = arguments!!.getBoolean(
+                    Constants.KEY_IS_PHOTO_FRAGMENT_VISIBLE, false)
+            if (albumIdSaved == Constants.NO_ALBUM_ID && !isPhotoFragmentVisibleSaved) {
+                goToAlbum()
+            } else {
+                if (isPhotoFragmentVisibleSaved) {
+                    goToPhoto()
+                } else {
+                    goToAlbumDetails(albumIdSaved)
+                }
+            }
         }
 
         main_activity_button_back.setOnClickListener(onBackButtonClickListener)
@@ -91,16 +100,15 @@ class ToolbarFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(albumId: Int, listener: Listener): ToolbarFragment {
+        fun newInstance(albumId: Int, isPhotoFragmentVisible: Boolean, listener: Listener): ToolbarFragment {
             val fragment = ToolbarFragment()
             val bundle = Bundle().apply {
-                putInt(KEY_ALBUM_ID, albumId)
+                putInt(Constants.KEY_ALBUM_ID, albumId)
+                putBoolean(Constants.KEY_IS_PHOTO_FRAGMENT_VISIBLE, isPhotoFragmentVisible)
             }
             fragment.listener = listener
             fragment.arguments = bundle
             return fragment
         }
-
-        private const val KEY_ALBUM_ID = "KEY_ALBUM_ID"
     }
 }

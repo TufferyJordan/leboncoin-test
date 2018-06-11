@@ -7,18 +7,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.jordantuffery.leboncoin.R
-import com.jordantuffery.leboncoin.base.BaseFragment
-import com.jordantuffery.leboncoin.presentation.album.Album
+import com.jordantuffery.leboncoin.api.Album
+import com.jordantuffery.leboncoin.presentation.Constants
+import com.jordantuffery.leboncoin.presentation.base.BaseFragment
 import com.jordantuffery.leboncoin.presentation.photos.PhotoAdapter
 import kotlinx.android.synthetic.main.fragment_album_details.album_details_fragment_error
 import kotlinx.android.synthetic.main.fragment_album_details.album_details_fragment_progress_bar
 import kotlinx.android.synthetic.main.fragment_album_details.album_details_fragment_recycler_view
+import kotlinx.android.synthetic.main.fragment_album_details.view.album_details_fragment_error
 import kotlinx.android.synthetic.main.fragment_album_details.view.album_details_fragment_recycler_view
 import kotlinx.android.synthetic.main.fragment_album_details.view.album_details_fragment_text_view_title
 
-class AlbumDetailsFragment() : BaseFragment(), AlbumDetailsContract.View {
+class AlbumDetailsFragment : BaseFragment(), AlbumDetailsContract.View {
     private var presenter: AlbumDetailsContract.Presenter? = null
+
     var listener: Listener? = null
+
+    private var albumId: Int = Constants.NO_ALBUM_ID
 
     private var photoAdapter = PhotoAdapter(listOf())
 
@@ -34,16 +39,21 @@ class AlbumDetailsFragment() : BaseFragment(), AlbumDetailsContract.View {
                 } else {
                     GridLayoutManager(context, 2)
                 }
-        rootView.album_details_fragment_text_view_title.text = rootView.resources.getString(
-                R.string.item_album_list_title, arguments?.getInt(KEY_ALBUM_ID) ?: 0)
+        albumId = arguments?.getInt(Constants.KEY_ALBUM_ID) ?: Constants.NO_ALBUM_ID
+        listener?.onSaveAlbumId(albumId)
 
+        rootView.album_details_fragment_text_view_title.text = rootView.resources.getString(
+                R.string.item_album_list_title, albumId)
+
+        rootView.album_details_fragment_error.setOnClickListener {
+            presenter?.requestPhotos(albumId)
+        }
         return rootView
     }
 
     override fun onStart() {
         presenter = AlbumDetailsPresenterImpl(api, this)
-        presenter?.requestPhotos(arguments?.getInt(KEY_ALBUM_ID) ?: 0)
-        listener?.onSaveAlbumId(arguments?.getInt(KEY_ALBUM_ID) ?: NO_ALBUM_ID)
+        presenter?.requestPhotos(albumId)
         super.onStart()
     }
 
@@ -52,12 +62,8 @@ class AlbumDetailsFragment() : BaseFragment(), AlbumDetailsContract.View {
         super.onStop()
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-    }
-
     override fun onDestroy() {
-        listener?.onSaveAlbumId(NO_ALBUM_ID)
+        listener?.onSaveAlbumId(Constants.NO_ALBUM_ID)
         super.onDestroy()
     }
 
@@ -85,18 +91,15 @@ class AlbumDetailsFragment() : BaseFragment(), AlbumDetailsContract.View {
     }
 
     interface Listener {
-        fun onSaveAlbumId(albumIdToSave: Int)
+        fun onSaveAlbumId(albumIdToSave : Int)
     }
 
     companion object {
         fun newInstance(albumId: Int): AlbumDetailsFragment {
             val fragment = AlbumDetailsFragment()
-            val args = Bundle().apply { putInt(KEY_ALBUM_ID, albumId) }
+            val args = Bundle().apply { putInt(Constants.KEY_ALBUM_ID, albumId) }
             fragment.arguments = args
             return fragment
         }
-
-        const val KEY_ALBUM_ID = "KEY_ALBUM_ID"
-        const val NO_ALBUM_ID = -1
     }
 }

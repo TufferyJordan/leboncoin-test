@@ -7,10 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.jordantuffery.leboncoin.R
-import com.jordantuffery.leboncoin.base.BaseFragment
+import com.jordantuffery.leboncoin.api.Album
+import com.jordantuffery.leboncoin.presentation.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_album.album_fragment_error
 import kotlinx.android.synthetic.main.fragment_album.album_fragment_progress_bar
 import kotlinx.android.synthetic.main.fragment_album.album_fragment_recycler_view
+import kotlinx.android.synthetic.main.fragment_album.view.album_fragment_error
 import kotlinx.android.synthetic.main.fragment_album.view.album_fragment_recycler_view
 
 class AlbumFragment : BaseFragment(), AlbumContract.AlbumView {
@@ -32,11 +34,12 @@ class AlbumFragment : BaseFragment(), AlbumContract.AlbumView {
                     GridLayoutManager(context, 2)
                 }
 
+        rootView.album_fragment_error.setOnClickListener { presenter?.requestAlbums() }
+
         return rootView
     }
 
     override fun onStart() {
-
         presenter = AlbumPresenterImpl(api, this)
         presenter?.requestAlbums()
         super.onStart()

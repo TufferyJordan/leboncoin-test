@@ -1,6 +1,7 @@
 package com.jordantuffery.leboncoin.presentation.album
 
-import com.jordantuffery.leboncoin.base.BaseContract
+import com.jordantuffery.leboncoin.api.Album
+import com.jordantuffery.leboncoin.presentation.base.BaseContract
 
 interface AlbumContract : BaseContract {
     interface AlbumView : BaseContract.BaseView {
